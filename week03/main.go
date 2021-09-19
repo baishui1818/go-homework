@@ -43,15 +43,15 @@ func main() {
 		return srv.Shutdown(errCtx)
 	})
 
-	chanel := make(chan os.Signal, 1)
-	signal.Notify(chanel)
+	channel := make(chan os.Signal, 1)
+	signal.Notify(channel)
 
 	group.Go(func() error {
 		for {
 			select {
 			case <-errCtx.Done():
 				return errCtx.Err()
-			case <-chanel:
+			case <-channel:
 				cancel()
 			}
 		}
